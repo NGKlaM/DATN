@@ -95,7 +95,7 @@ class CheckoutController extends Controller
         $vnp_Locale = 'vn';
         $vnp_IpAddr = "1.55.197.187";
         $startTime = date("YmdHis");
-        $expire = date('YmdHis',strtotime('+15 minutes',strtotime($startTime)));
+
 
         $inputData = [
             "vnp_Version" => "2.1.0",
@@ -110,7 +110,6 @@ class CheckoutController extends Controller
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" => $vnpReturnUrl,
             "vnp_TxnRef" => $vnpTxnRef,
-            "vnp_ExpireDate" => $expire,
         ];
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {

@@ -22,6 +22,13 @@ class UserDataTable extends DataTable
             ->editColumn('created_at', fn($data) => $data->created_at->format('d-m-Y H:i:s'))
             ->editColumn('updated_at', fn($data) => $data->updated_at->format('d-m-Y H:i:s'))
             ->editColumn('email_verified_at', fn($data) => $data->email_verified_at ? $data->email_verified_at->format('d-m-Y H:i:s') : '-')
+            ->editColumn('name', function ($data) {
+                $view = '';
+                if (auth()->user()->can('read user management')) {
+                    $view = "<a href='" . route('admin.users.show', $data->id) . "'>$data->name</a>";
+                }
+                return $view;
+            })
             ->addColumn('action', function ($data) {
                 $buttonDelete = '';
                 if (auth()->user()->can('delete user management')) {
@@ -31,6 +38,7 @@ class UserDataTable extends DataTable
                 $element = "$buttonDelete";
                 return $element;
             })
+            ->rawColumns(['name', 'action'])
             ->setRowId('id');
     }
 

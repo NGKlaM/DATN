@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\UserDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::query()->findOrFail($id);
+        $orders = Order::query()->where('user_id', $id)->get();
+        $role = $user->getRoleNames()->first();
+        return view('backend.user.show', compact('user', 'role', 'orders'));
     }
 
     /**

@@ -169,10 +169,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'index'])->name('admin.users.index')->middleware(['permission:read user management']);
-            Route::get('/create', [UserController::class, 'create'])->name('admin.users.create')->middleware(['permission:create user management']);
-            Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
-            Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.users.edit')->middleware(['permission:edit user management']);
-            Route::patch('/{id}', [UserController::class, 'update'])->name('admin.users.update');
+            Route::get('/view/{id}', [UserController::class, 'show'])->name('admin.users.show')->middleware(['permission:read user management']);
             Route::get('/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy')->middleware(['permission:delete user management']);
         });
     });
